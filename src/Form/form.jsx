@@ -14,10 +14,40 @@ function MyForm() {
   const [war, setWar] = useState(false);
   const [robbery, setRobbery] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    alert(`Name: ${nationalCode}\nOption 1: ${earthquake}\nOption 2: ${flood}`);
+    const formData = {
+      nationalCode,
+      name,
+      familyname,
+      address,
+      postalCode,
+      phoneNumber,
+      earthquake,
+      flood,
+      thunderstorm,
+      war,
+      robbery,
+    };
+    alert(JSON.stringify(formData, null, 2));
+
+    try {
+      const response = await fetch("backend-url.com/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        alert("اطلاعات با موفقیت ارسال شد!");
+      } else {
+        alert("خطا در ارسال اطلاعات.");
+      }
+    } catch (error) {
+      alert("ارتباط با سرور برقرار نشد.");
+    }
   };
 
   return (
