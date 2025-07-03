@@ -1,0 +1,23 @@
+form {
+  display: flex;
+  flex-direction: column;
+  input {
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+  }
+  textArea {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+  }
+  .form-title {
+    text-align: center;
+    font-size: 5rem;
+    margin-bottom: 200px;
+  }
+}
