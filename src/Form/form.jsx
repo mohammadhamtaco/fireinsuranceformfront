@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./form.css";
 import axios from "axios";
-
+console.log(process.env);
 const API = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 function MyForm() {
   const [nationalCode, setNationalCode] = useState("");
@@ -25,9 +25,7 @@ function MyForm() {
   const [cap, setCap] = useState({ id: "", captcha: "" });
 
   const call_captcha = () => {
-    if (isRequested.current) return;
-    isRequested.current = true;
-
+    // شرط حذف شد تا همیشه کلیک کار کند
     let url = "/captcha";
     if (cap.id !== "") url += `?id=${cap.id}`;
 
@@ -43,7 +41,9 @@ function MyForm() {
           });
         }
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
   useEffect(() => {
     call_captcha();
@@ -65,28 +65,33 @@ function MyForm() {
       war: war,
       increaseCapital: increaseCapital,
       robbery: robbery,
-      id: "Fake ID",
+      id: cap.id, // ارسال آی‌دی کپچا
       captcha: captchaValue,
-    }).then((data) => {
-      console.log(data);
-      alert("اطلاعات با موفقیت ثبت شد");
-      // Reset form fields after successful submission
-      setNationalCode("");
-      setName("");
-      setFamilyname("");
-      setAddress("");
-      setPostalCode("");
-      setPhoneNumber("");
-      setHouseArea("");
-      setEarthquake(false);
-      setFlood(false);
-      setThunderstorm(false);
-      setWar(false);
-      setIncreaseCapital(false);
-      setRobbery(false);
-      setCaptchaValue("");
-      setCap({ id: "", captcha: "" });
-    });
+    })
+      .then((data) => {
+        console.log(data);
+        alert("اطلاعات با موفقیت ثبت شد");
+        // Reset form fields after successful submission
+        setNationalCode("");
+        setName("");
+        setFamilyname("");
+        setAddress("");
+        setPostalCode("");
+        setPhoneNumber("");
+        setHouseArea("");
+        setEarthquake(false);
+        setFlood(false);
+        setThunderstorm(false);
+        setWar(false);
+        setIncreaseCapital(false);
+        setRobbery(false);
+        setCaptchaValue("");
+        setCap({ id: "", captcha: "" });
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("خطا در ثبت اطلاعات. لطفا دوباره تلاش کنید.");
+      });
   };
 
   return (
@@ -174,72 +179,27 @@ function MyForm() {
         {/* ----------------------------------------- */}
 
         <div className="row mb-4">
-          <div className="form-check form-switch col-12">
-            <label className="form-check-label">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={earthquake}
-                onChange={(e) => setEarthquake(e.target.checked)}
-              />
-              زلزله
-            </label>
-          </div>
-          <div className="form-check form-switch col-12">
-            <label className="form-check-label">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={flood}
-                onChange={(e) => setFlood(e.target.checked)}
-              />
-              سیل
-            </label>
-          </div>
-          <div className="form-check form-switch col-12">
-            <label className="form-check-label">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={thunderstorm}
-                onChange={(e) => setThunderstorm(e.target.checked)}
-              />
-              طوفان
-            </label>
-          </div>
-          <div className="form-check form-switch col-12">
-            <label className="form-check-label">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={war}
-                onChange={(e) => setWar(e.target.checked)}
-              />
-              پوشش جنگ
-            </label>
-          </div>
-          <div className="form-check form-switch col-12">
-            <label className="form-check-label">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={increaseCapital}
-                onChange={(e) => setIncreaseCapital(e.target.checked)}
-              />
-              افزایش سرمایه
-            </label>
-          </div>
-          <div className="form-check form-switch col-12">
-            <label className="form-check-label">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={robbery}
-                onChange={(e) => setRobbery(e.target.checked)}
-              />
-              سرقت با شکست حرز
-            </label>
-          </div>
+          {/* ریفکتور چک‌باکس‌ها با آرایه */}
+          {[
+            { label: "زلزله", state: earthquake, setState: setEarthquake },
+            { label: "سیل", state: flood, setState: setFlood },
+            { label: "طوفان", state: thunderstorm, setState: setThunderstorm },
+            { label: "پوشش جنگ", state: war, setState: setWar },
+            { label: "افزایش سرمایه", state: increaseCapital, setState: setIncreaseCapital },
+            { label: "سرقت با شکست حرز", state: robbery, setState: setRobbery },
+          ].map((item, idx) => (
+            <div className="form-check form-switch col-12" key={idx}>
+              <label className="form-check-label">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  checked={item.state}
+                  onChange={e => item.setState(e.target.checked)}
+                />
+                {item.label}
+              </label>
+            </div>
+          ))}
         </div>
         <div className="row ">
           <input
