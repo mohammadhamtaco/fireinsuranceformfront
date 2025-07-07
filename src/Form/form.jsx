@@ -16,11 +16,13 @@ function MyForm() {
   const [war, setWar] = useState(false);
   const [increaseCapital, setIncreaseCapital] = useState(false);
   const [robbery, setRobbery] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState("");
+  const [captcha] = axios.get("http://localhost:4100/captcha");
 
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/kharazmiforms", {
+      .post("http://localhost:4100/kharazmiforms", {
         nationalCode: nationalCode,
         name: name,
         familyname: familyname,
@@ -206,9 +208,19 @@ function MyForm() {
             </label>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary w-50 mx-auto">
-          ارسال
-        </button>
+        <div className="row ">
+          <input
+            placeholder="کد امنیتی را وارد کنید"
+            className="col-12 col-sm-2 p-3 mx-sm-3"
+            type="text"
+            value={captchaValue}
+            onChange={(e) => setCaptchaValue(e.target.value)}
+          />
+          <img src={captcha.id} alt="Captcha" />
+          <button type="submit" className="btn btn-primary w-50">
+            ارسال
+          </button>
+        </div>
       </form>
     </div>
   );
