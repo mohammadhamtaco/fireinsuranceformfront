@@ -9,48 +9,13 @@ function MyForm() {
   const [address, setAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [houseArea, setHouseArea] = useState("");
   const [earthquake, setEarthquake] = useState(false);
   const [flood, setFlood] = useState(false);
   const [thunderstorm, setThunderstorm] = useState(false);
   const [war, setWar] = useState(false);
+  const [increaseCapital, setIncreaseCapital] = useState(false);
   const [robbery, setRobbery] = useState(false);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const formData = {
-  //     nationalCode,
-  //     name,
-  //     familyname,
-  //     address,
-  //     postalCode,
-  //     phoneNumber,
-  //     earthquake,
-  //     flood,
-  //     thunderstorm,
-  //     war,
-  //     robbery,
-  //   };
-  //   alert(JSON.stringify(formData, null, 2));
-
-  //   try {
-  //     const response = await fetch("backend-url.com/api/form", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       alert("اطلاعات با موفقیت ارسال شد!");
-  //     } else {
-  //       alert("خطا در ارسال اطلاعات.");
-  //     }
-  //   } catch (error) {
-  //     alert("ارتباط با سرور برقرار نشد.");
-  //   }
-  // };
 
   const apiCall = async (e) => {
     e.preventDefault();
@@ -68,7 +33,6 @@ function MyForm() {
       robbery,
     };
     try {
-      // await axios.post("http://localhost:8080/api/form", formData);
       await axios.get("http://localhost:8080").then((data) => {
         console.log(data);
       });
@@ -82,9 +46,19 @@ function MyForm() {
       <form onSubmit={apiCall}>
         <div className="form-title">
           <img src={require("../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
-          <p> فرم مخصوص کارکنان دانشگاه خوارزمی</p>
-          <img src={require("../assets/kharazmiLogo.png")} alt="KharazmiLogo" />
+          <p> </p>
+          <img
+            src={require("../assets/kharazmilogoblack.png")}
+            alt="KharazmiLogo"
+          />
         </div>
+        <p>
+          بازگشت به تفاهم صورت گرفته مابین شرکت بیمه آسیا و دانشگاه خوارزمی،
+          منازل مسکونی پرسنل تا سقف ده میلیارد ریال تحت پوشش بیمه‌ی آتش‌سوزی،
+          صاعقه و انفجار قرار گرفته است
+          <br />
+          به منظور شروع پوشش بیمه‌ای نسبت به تکمیل اطلاعات ذیل اقدام نمائید:
+        </p>
 
         <div className="row mb-5 justify-content-between">
           <input
@@ -136,11 +110,18 @@ function MyForm() {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
+          <input
+            placeholder="متراژ خانه"
+            className="col-12 col-sm-2 p-3 mx-sm-5"
+            type="text"
+            value={houseArea}
+            onChange={(e) => setHouseArea(e.target.value)}
+          />
         </div>
         {/* ----------------------------------------------- */}
         <p className="text-center my-3">
-          این بیمه نامه جهت پوشش آتشسوزی، صاعقه و انفجار است و در صورت نیاز به
-          پوششهای زیر هر کدام را جداگانه انتخاب نمائید:
+          به اطلاع میرساند امکان افزایش پوششهای ذیل به جهت بهبود بیمه نامه با
+          توجه به نیاز بیمه‌گذار میسر است:{" "}
         </p>
         {/* ----------------------------------------- */}
         <div className="row mb-4">
@@ -193,10 +174,21 @@ function MyForm() {
               <input
                 className="form-check-input"
                 type="checkbox"
+                checked={increaseCapital}
+                onChange={(e) => setIncreaseCapital(e.target.checked)}
+              />
+              افزایش سرمایه
+            </label>
+          </div>
+          <div className="form-check form-switch col-12">
+            <label className="form-check-label">
+              <input
+                className="form-check-input"
+                type="checkbox"
                 checked={robbery}
                 onChange={(e) => setRobbery(e.target.checked)}
               />
-              سرقت ملک
+              سرقت با شکست حرز
             </label>
           </div>
         </div>
