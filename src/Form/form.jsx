@@ -17,33 +17,47 @@ function MyForm() {
   const [increaseCapital, setIncreaseCapital] = useState(false);
   const [robbery, setRobbery] = useState(false);
 
-  const apiCall = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    const formData = {
-      nationalCode,
-      name,
-      familyname,
-      address,
-      postalCode,
-      phoneNumber,
-      earthquake,
-      flood,
-      thunderstorm,
-      war,
-      robbery,
-    };
-    try {
-      await axios.get("http://localhost:8080").then((data) => {
+    axios
+      .post("http://localhost:8080/kharazmiforms", {
+        nationalCode: nationalCode,
+        name: name,
+        familyname: familyname,
+        address: address,
+        postalCode: postalCode,
+        phoneNumber: phoneNumber,
+        houseArea: houseArea,
+        earthquake: earthquake,
+        flood: flood,
+        thunderstorm: thunderstorm,
+        war: war,
+        increaseCapital: increaseCapital,
+        robbery: robbery,
+      })
+      .then((data) => {
         console.log(data);
+        alert("اطلاعات با موفقیت ثبت شد");
+        // Reset form fields after successful submission
+        setNationalCode("");
+        setName("");
+        setFamilyname("");
+        setAddress("");
+        setPostalCode("");
+        setPhoneNumber("");
+        setHouseArea("");
+        setEarthquake(false);
+        setFlood(false);
+        setThunderstorm(false);
+        setWar(false);
+        setIncreaseCapital(false);
+        setRobbery(false);
       });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
   };
 
   return (
     <div className="container">
-      <form onSubmit={apiCall}>
+      <form onSubmit={submitHandler}>
         <div className="form-title">
           <img src={require("../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
           <p> </p>
