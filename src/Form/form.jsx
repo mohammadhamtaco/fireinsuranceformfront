@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./form.css";
 import axios from "axios";
 
+const API = axios.create({
+  baseURL: process.env.API_URL,
+});
 function MyForm() {
   const [nationalCode, setNationalCode] = useState("");
   const [name, setName] = useState("");
@@ -16,45 +19,74 @@ function MyForm() {
   const [war, setWar] = useState(false);
   const [increaseCapital, setIncreaseCapital] = useState(false);
   const [robbery, setRobbery] = useState(false);
+
   const [captchaValue, setCaptchaValue] = useState("");
-  const [captcha] = axios.get("http://localhost:4100/captcha");
+  const isRequested = useRef(false);
+  const [cap, setCap] = useState({ id: "", captcha: "" });
+
+  const call_captcha = () => {
+    if (isRequested.current) return;
+    isRequested.current = true;
+
+    let url = "/captcha";
+    if (cap.id !== "") url += `?id=${cap.id}`;
+
+    API.get(url)
+      .then(({ data }) => {
+        if (data) {
+          console.log({ id: data.id });
+          setCap({
+            id: data.id,
+            captcha: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+              data.captcha
+            )}`,
+          });
+        }
+      })
+      .catch(console.error);
+  };
+  useEffect(() => {
+    call_captcha();
+  }, []);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:4100/kharazmiforms", {
-        nationalCode: nationalCode,
-        name: name,
-        familyname: familyname,
-        address: address,
-        postalCode: postalCode,
-        phoneNumber: phoneNumber,
-        houseArea: houseArea,
-        earthquake: earthquake,
-        flood: flood,
-        thunderstorm: thunderstorm,
-        war: war,
-        increaseCapital: increaseCapital,
-        robbery: robbery,
-      })
-      .then((data) => {
-        console.log(data);
-        alert("اطلاعات با موفقیت ثبت شد");
-        // Reset form fields after successful submission
-        setNationalCode("");
-        setName("");
-        setFamilyname("");
-        setAddress("");
-        setPostalCode("");
-        setPhoneNumber("");
-        setHouseArea("");
-        setEarthquake(false);
-        setFlood(false);
-        setThunderstorm(false);
-        setWar(false);
-        setIncreaseCapital(false);
-        setRobbery(false);
-      });
+    API.post("/kharazmiforms", {
+      nationalCode: nationalCode,
+      name: name,
+      familyname: familyname,
+      address: address,
+      postalCode: postalCode,
+      phoneNumber: phoneNumber,
+      houseArea: houseArea,
+      earthquake: earthquake,
+      flood: flood,
+      thunderstorm: thunderstorm,
+      war: war,
+      increaseCapital: increaseCapital,
+      robbery: robbery,
+      id: "Fake ID",
+      captcha: captchaValue,
+    }).then((data) => {
+      console.log(data);
+      alert("اطلاعات با موفقیت ثبت شد");
+      // Reset form fields after successful submission
+      setNationalCode("");
+      setName("");
+      setFamilyname("");
+      setAddress("");
+      setPostalCode("");
+      setPhoneNumber("");
+      setHouseArea("");
+      setEarthquake(false);
+      setFlood(false);
+      setThunderstorm(false);
+      setWar(false);
+      setIncreaseCapital(false);
+      setRobbery(false);
+      setCaptchaValue("");
+      setCap({ id: "", captcha: "" });
+    });
   };
 
   return (
@@ -140,6 +172,7 @@ function MyForm() {
           توجه به نیاز بیمه‌گذار میسر است:{" "}
         </p>
         {/* ----------------------------------------- */}
+
         <div className="row mb-4">
           <div className="form-check form-switch col-12">
             <label className="form-check-label">
@@ -216,7 +249,13 @@ function MyForm() {
             value={captchaValue}
             onChange={(e) => setCaptchaValue(e.target.value)}
           />
-          <img src={captcha.id} alt="Captcha" />
+          <img
+            className="captcha-image"
+            src={cap.captcha}
+            alt="Captcha"
+            onClick={call_captcha}
+          />
+
           <button type="submit" className="btn btn-primary w-50">
             ارسال
           </button>

@@ -37,4 +37,8 @@ form {
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
   }
+  .captcha-image {
+    width: 150px;
+    cursor: pointer;
+  }
 }
