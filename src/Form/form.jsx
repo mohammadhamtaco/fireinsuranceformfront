@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./form.css";
+import axios from "axios";
 
 function MyForm() {
   const [nationalCode, setNationalCode] = useState("");
@@ -14,9 +15,45 @@ function MyForm() {
   const [war, setWar] = useState(false);
   const [robbery, setRobbery] = useState(false);
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const formData = {
+  //     nationalCode,
+  //     name,
+  //     familyname,
+  //     address,
+  //     postalCode,
+  //     phoneNumber,
+  //     earthquake,
+  //     flood,
+  //     thunderstorm,
+  //     war,
+  //     robbery,
+  //   };
+  //   alert(JSON.stringify(formData, null, 2));
+
+  //   try {
+  //     const response = await fetch("backend-url.com/api/form", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (response.ok) {
+  //       alert("اطلاعات با موفقیت ارسال شد!");
+  //     } else {
+  //       alert("خطا در ارسال اطلاعات.");
+  //     }
+  //   } catch (error) {
+  //     alert("ارتباط با سرور برقرار نشد.");
+  //   }
+  // };
+
+  const apiCall = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     const formData = {
       nationalCode,
       name,
@@ -30,29 +67,19 @@ function MyForm() {
       war,
       robbery,
     };
-    alert(JSON.stringify(formData, null, 2));
-
     try {
-      const response = await fetch("backend-url.com/api/form", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      // await axios.post("http://localhost:8080/api/form", formData);
+      await axios.get("http://localhost:8080").then((data) => {
+        console.log(data);
       });
-      if (response.ok) {
-        alert("اطلاعات با موفقیت ارسال شد!");
-      } else {
-        alert("خطا در ارسال اطلاعات.");
-      }
     } catch (error) {
-      alert("ارتباط با سرور برقرار نشد.");
+      console.error("Error fetching data:", error);
     }
   };
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={apiCall}>
         <div className="form-title">
           <img src={require("../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
           <p> فرم مخصوص کارکنان دانشگاه خوارزمی</p>
