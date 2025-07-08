@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./form.css";
 import axios from "axios";
 console.log(process.env);
@@ -21,7 +21,6 @@ function MyForm() {
   const [robbery, setRobbery] = useState(false);
 
   const [captchaValue, setCaptchaValue] = useState("");
-  const isRequested = useRef(false);
   const [cap, setCap] = useState({ id: "", captcha: "" });
 
   const call_captcha = () => {
@@ -29,69 +28,72 @@ function MyForm() {
     let url = "/captcha";
     if (cap.id !== "") url += `?id=${cap.id}`;
 
-    API.get(url)
-      .then(({ data }) => {
-        if (data) {
-          console.log({ id: data.id });
-          setCap({
-            id: data.id,
-            captcha: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-              data.captcha
-            )}`,
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    API.get(url).then(({ data }) => {
+      if (data) {
+        console.log({ id: data.id });
+        setCap({
+          id: data.id,
+          captcha: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+            data.captcha
+          )}`,
+        });
+      }
+    }).catch((err) => {
+      console.error(err.response?.data || 'خطا');
+    });
   };
   useEffect(() => {
     call_captcha();
   }, []);
 
-  const submitHandler = (e) => {
+  const resetForm = () => {
+    setNationalCode("");
+    setName("");
+    setFamilyname("");
+    setAddress("");
+    setPostalCode("");
+    setPhoneNumber("");
+    setHouseArea("");
+    setEarthquake(false);
+    setFlood(false);
+    setThunderstorm(false);
+    setWar(false);
+    setIncreaseCapital(false);
+    setRobbery(false);
+    setCaptchaValue("");
+    setCap({ id: "", captcha: "" });
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    API.post("/kharazmiforms", {
-      nationalCode: nationalCode,
-      name: name,
-      familyname: familyname,
-      address: address,
-      postalCode: postalCode,
-      phoneNumber: phoneNumber,
-      houseArea: houseArea,
-      earthquake: earthquake,
-      flood: flood,
-      thunderstorm: thunderstorm,
-      war: war,
-      increaseCapital: increaseCapital,
-      robbery: robbery,
-      id: cap.id, // ارسال آی‌دی کپچا
-      captcha: captchaValue,
-    })
-      .then((data) => {
-        console.log(data);
-        alert("اطلاعات با موفقیت ثبت شد");
-        // Reset form fields after successful submission
-        setNationalCode("");
-        setName("");
-        setFamilyname("");
-        setAddress("");
-        setPostalCode("");
-        setPhoneNumber("");
-        setHouseArea("");
-        setEarthquake(false);
-        setFlood(false);
-        setThunderstorm(false);
-        setWar(false);
-        setIncreaseCapital(false);
-        setRobbery(false);
-        setCaptchaValue("");
-        setCap({ id: "", captcha: "" });
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("خطا در ثبت اطلاعات. لطفا دوباره تلاش کنید.");
-      });
+    try {
+      const payload = {
+        nationalCode,
+        name,
+        familyname,
+        address,
+        postalCode,
+        phoneNumber,
+        houseArea,
+        earthquake,
+        flood,
+        thunderstorm,
+        war,
+        increaseCapital,
+        robbery,
+        id: cap.id,
+        captcha: captchaValue,
+      };
+      const { data } = await API.post("/kharazmiforms", payload);
+      console.log(data);
+      alert("اطلاعات با موفقیت ثبت شد");
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data || "خطا در ثبت اطلاعات. لطفا دوباره تلاش کنید.");
+    } finally {
+      call_captcha();
+    }
   };
 
   return (
@@ -147,7 +149,7 @@ function MyForm() {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        <div className="row my-5">
+        <div className="row mb-5 justify-content-between">
           <input
             placeholder="کد پستی"
             className="col-12 col-sm-4 p-3"
@@ -155,17 +157,16 @@ function MyForm() {
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
           />
-
           <input
             placeholder="شماره تلفن همراه"
-            className="col-12 col-sm-4 p-3 mx-sm-5"
+            className="col-12 col-sm-3 p-3"
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
           <input
             placeholder="متراژ خانه"
-            className="col-12 col-sm-2 p-3 mx-sm-5"
+            className="col-12 col-sm-4 p-3"
             type="text"
             value={houseArea}
             onChange={(e) => setHouseArea(e.target.value)}
@@ -202,6 +203,7 @@ function MyForm() {
           ))}
         </div>
         <div className="row ">
+
           <input
             placeholder="کد امنیتی را وارد کنید"
             className="col-12 col-sm-2 p-3 mx-sm-3"
@@ -209,6 +211,7 @@ function MyForm() {
             value={captchaValue}
             onChange={(e) => setCaptchaValue(e.target.value)}
           />
+
           <img
             className="captcha-image"
             src={cap.captcha}
