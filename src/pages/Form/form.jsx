@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./form.css";
 import axios from "axios";
-console.log(process.env);
+// console.log(process.env);
 const API = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
@@ -100,10 +100,10 @@ function MyForm() {
     <div className="container">
       <form onSubmit={submitHandler}>
         <div className="form-title">
-          <img src={require("../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
+          <img src={require("../../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
           <p> </p>
           <img
-            src={require("../assets/kharazmilogoblack.png")}
+            src={require("../../assets/kharazmilogoblack.png")}
             alt="KharazmiLogo"
           />
         </div>

@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "Vazirmatn";
   src: local("Vazirmatn"), url("./fonts/Vazirmatn-Black.woff2") format("woff2"),
     url("./fonts/Vazirmatn-Bold.woff2") format("woff2"),
@@ -12,4 +12,4 @@
 }
 .App {
   background: linear-gradient(rgba(0, 0, 255, 0.3), rgba(10, 100, 255, 0.3));
-}
+} */
