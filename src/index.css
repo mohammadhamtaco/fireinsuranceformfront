@@ -1,7 +1,8 @@
 body {
   @font-face {
     font-family: "Vazirmatn";
-    src: local("Vazirmatn"), url("./fonts/Vazirmatn-Black.woff2") format("woff2"),
+    src: local("Vazirmatn"),
+      url("./fonts/Vazirmatn-Black.woff2") format("woff2"),
       url("./fonts/Vazirmatn-Bold.woff2") format("woff2"),
       url("./fonts/Vazirmatn-ExtraBold.woff2") format("woff2"),
       url("./fonts/Vazirmatn-ExtraLight.woff2") format("woff2"),
@@ -11,11 +12,4 @@ body {
       url("./fonts/Vazirmatn-SemiBold.woff2") format("woff2"),
       url("./fonts/Vazirmatn-Thin.woff2") format("woff2");
   }
-  
-  background: linear-gradient(rgba(0, 0, 255, 0.3), rgba(10, 100, 255, 0.3));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-
-
-

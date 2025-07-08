@@ -97,8 +97,8 @@ function MyForm() {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler}>
+      <div className="container">
         <div className="form-title">
           <img src={require("../../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
           <p> </p>
@@ -223,8 +223,8 @@ function MyForm() {
             ارسال
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 
