@@ -107,75 +107,83 @@ function MyForm() {
             alt="KharazmiLogo"
           />
         </div>
+        {/* ----------------------------------------- */}
         <p>
           بازگشت به تفاهم صورت گرفته مابین شرکت بیمه آسیا و دانشگاه خوارزمی،
           منازل مسکونی پرسنل تا سقف ده میلیارد ریال تحت پوشش بیمه‌ی آتش‌سوزی،
-          صاعقه و انفجار قرار گرفته است
-          <br />
-          به منظور شروع پوشش بیمه‌ای نسبت به تکمیل اطلاعات ذیل اقدام نمائید:
+          صاعقه و انفجار قرار گرفته است. بمنظور شروع پوشش بیمه‌ای نسبت به تکمیل اطلاعات ذیل اقدام نمائید:
         </p>
+        {/* ------------------------------------------- */}
 
-        <div className="row mb-5 justify-content-between">
+        <div className="row justify-content-evenly">
           <input
             placeholder="کد ملی"
-            className="col-12 col-sm-4 p-3"
+            className="col-10 col-sm-4 p-3"
             type="text"
             value={nationalCode}
             onChange={(e) => setNationalCode(e.target.value)}
+            required
           />
 
           <input
             placeholder="نام"
-            className="col-12 col-sm-3 p-3"
+            className="col-10 col-sm-3 p-3 my-3 my-sm-0"
             type="text"
             value={name}
+            required
             onChange={(e) => setName(e.target.value)}
           />
 
           <input
             placeholder="نام خانوادگی"
-            className="col-12 col-sm-4 p-3"
+            className="col-10 col-sm-4 p-3"
             type="text"
             value={familyname}
+            required
             onChange={(e) => setFamilyname(e.target.value)}
           />
         </div>
-        <div className="row">
-          <textarea
-            placeholder="آدرس"
-            className="p-3"
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <div className="row mb-5 justify-content-between">
-          <input
-            placeholder="کد پستی"
-            className="col-12 col-sm-4 p-3"
-            type="text"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-          />
+
+        <div className="row justify-content-evenly my-3">
           <input
             placeholder="شماره تلفن همراه"
-            className="col-12 col-sm-3 p-3"
+            className="col-10 col-sm-4 p-3 "
             type="text"
             value={phoneNumber}
+            required
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
           <input
             placeholder="متراژ خانه"
-            className="col-12 col-sm-4 p-3"
+            className="col-10 col-sm-3 p-3 my-3 my-sm-0"
             type="text"
             value={houseArea}
+            required
             onChange={(e) => setHouseArea(e.target.value)}
+          />
+          <input
+            placeholder="کد پستی"
+            className="col-10 col-sm-4 p-3"
+            type="text"
+            value={postalCode}
+            required
+            onChange={(e) => setPostalCode(e.target.value)}
+          />
+        </div>
+        <div className="row justify-content-evenly">
+          <textarea
+            placeholder="آدرس"
+            className="py-3 col-10 col-sm-8"
+            type="text"
+            value={address}
+            required
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         {/* ----------------------------------------------- */}
-        <p className="text-center my-3">
-          به اطلاع میرساند امکان افزایش پوششهای ذیل به جهت بهبود بیمه نامه با
-          توجه به نیاز بیمه‌گذار میسر است:{" "}
+        <p className="my-3">
+          به اطلاع میرساند امکان افزایش پوششهای ذیل به جهت بهبود بیمه‌نامه با
+          توجه به نیاز بیمه‌گذار میسر است؛ در صورت درخواست، هر کدام از موارد مورد نیاز را انتخاب نمائید. کارشناسان این شرکت در اسرع وقت با شما ارتباط میگیرند.
         </p>
         {/* ----------------------------------------- */}
 
@@ -202,24 +210,24 @@ function MyForm() {
             </div>
           ))}
         </div>
-        <div className="row ">
-
-          <input
-            placeholder="کد امنیتی را وارد کنید"
-            className="col-12 col-sm-2 p-3 mx-sm-3"
-            type="text"
-            value={captchaValue}
-            onChange={(e) => setCaptchaValue(e.target.value)}
-          />
-
+        <div className="row justify-content-center align-items-center">
           <img
             className="captcha-image"
             src={cap.captcha}
             alt="Captcha"
             onClick={call_captcha}
           />
-
-          <button type="submit" className="btn btn-primary w-50">
+          <input
+            placeholder="کد امنیتی را وارد کنید"
+            className="col-10 col-sm-3 p-3"
+            type="text"
+            value={captchaValue}
+            required
+            onChange={(e) => setCaptchaValue(e.target.value)}
+          />
+        </div>
+        <div className="row mx-auto justify-content-center mt-3">
+          <button type="submit" className="btn btn-primary w-25">
             ارسال
           </button>
         </div>

@@ -16,14 +16,11 @@ form {
     img {
       height: 5rem;
     }
-    p {
-      text-align: center;
-      font-size: 2rem;
-    }
   }
   p {
     font-size: 20px;
-    text-align: right;
+    text-align: justify;
+    padding: 10px;
   }
   input {
     border-radius: 15px;
@@ -42,5 +39,6 @@ form {
   .captcha-image {
     width: 150px;
     cursor: pointer;
+    margin: 15px;
   }
 }
