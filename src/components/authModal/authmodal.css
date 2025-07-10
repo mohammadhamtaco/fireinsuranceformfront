@@ -1,0 +1,24 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border: none;
+  padding: 5px;
+  background: rgba(172, 172, 206, 0.8);
+
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+
+  input {
+    margin: 20px auto;
+    width: 75%;
+  }
+  button {
+    width: 50%;
+    padding: 5px;
+    margin: 20px auto;
+  }
+}
