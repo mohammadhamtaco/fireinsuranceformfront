@@ -41,4 +41,19 @@ form {
     cursor: pointer;
     margin: 15px;
   }
+  .form-check {
+    display: flex;
+    margin: 10px 0;
+    justify-content: flex-start;
+    label {
+      font-weight: 900;
+      margin-right: 50px;
+      span {
+        font-weight: 500;
+      }
+    }
+    input {
+      width: 100%;
+    }
+  }
 }

@@ -190,22 +190,23 @@ function MyForm() {
         <div className="row mb-4">
           {/* ریفکتور چک‌باکس‌ها با آرایه */}
           {[
-            { label: "زلزله", state: earthquake, setState: setEarthquake },
-            { label: "سیل", state: flood, setState: setFlood },
-            { label: "طوفان", state: thunderstorm, setState: setThunderstorm },
-            { label: "پوشش جنگ", state: war, setState: setWar },
-            { label: "افزایش سرمایه", state: increaseCapital, setState: setIncreaseCapital },
-            { label: "سرقت با شکست حرز", state: robbery, setState: setRobbery },
+            { label: "زلزله", state: earthquake, setState: setEarthquake, info: " با پرداخت حق بیمه اضافی به مبلغ 110 هزار تومان" },
+            { label: "سیل", state: flood, setState: setFlood, info: " با پرداخت حق بیمه اضافی به مبلغ 44 هزار تومان" },
+            { label: "طوفان", state: thunderstorm, setState: setThunderstorm, info: " با پرداخت حق بیمه اضافی به مبلغ 44 هزار تومان" },
+            { label: "پوشش جنگ", state: war, setState: setWar, info: " با پرداخت حق بیمه اضافی به مبلغ 660 هزار تومان" },
+            { label: "افزایش سرمایه", state: increaseCapital, setState: setIncreaseCapital, info: " لازم است با کارشناسان ما مشورت کنید" },
+            { label: "سرقت با شکست حرز", state: robbery, setState: setRobbery, info: " لازم است با کارشناسان ما مشورت کنید" },
           ].map((item, idx) => (
-            <div className="form-check form-switch col-12" key={idx}>
-              <label className="form-check-label">
+            <div className="form-check form-switch col-12 col-sm-6" key={idx}>
                 <input
-                  className="form-check-input"
+                className="form-check-input"
                   type="checkbox"
                   checked={item.state}
                   onChange={e => item.setState(e.target.checked)}
-                />
+              />
+              <label className="form-check-label ">
                 {item.label}
+                <span className="form-check-info"> ({item.info}) </span>
               </label>
             </div>
           ))}
