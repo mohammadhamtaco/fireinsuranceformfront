@@ -1,6 +1,6 @@
 .panel {
   display: flex;
   flex-direction: column;
-  background: tomato;
+  background: rgb(144, 144, 144);
   min-height: 100vh;
 }
