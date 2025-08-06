@@ -10,11 +10,10 @@ form {
 
   .form-title {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 4rem;
-    img {
-      height: 5rem;
+    justify-content: space-around;
+    align-items: center;
+    img{
+      height: 7rem;
     }
   }
   p {

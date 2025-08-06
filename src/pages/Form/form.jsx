@@ -101,18 +101,62 @@ function MyForm() {
       <div className="container">
         <div className="form-title">
           <img src={require("../../assets/hamtaLogo.png")} alt="HamtaCoLogo" />
-          <p> </p>
+
           <img
-            src={require("../../assets/kharazmilogoblack.png")}
-            alt="KharazmiLogo"
+            src={require("../../assets/zirsakhtLogo.png")}
+            alt="Logo"
           />
         </div>
+
         {/* ----------------------------------------- */}
-        <p>
-          بازگشت به تفاهم صورت گرفته مابین شرکت بیمه آسیا و دانشگاه خوارزمی،
-          منازل مسکونی پرسنل تا سقف ده میلیارد ریال تحت پوشش بیمه‌ی آتش‌سوزی،
-          صاعقه و انفجار قرار گرفته است. بمنظور شروع پوشش بیمه‌ای نسبت به تکمیل اطلاعات ذیل اقدام نمائید:
-        </p>
+
+
+        <div class="container" dir="rtl">
+
+          <p class="card-text text-justify">
+            بازگشت به تفاهم‌نامه صورت‌گرفته مابین <strong>شرکت بیمه آسیا</strong> و <strong>شرکت ارتباطات زیرساخت</strong>، بدین‌وسیله به اطلاع می‌رسد که
+            منازل مسکونی پرسنل تحت پوشش بیمه‌ای خطرات آتش‌سوزی،
+            صاعقه، انفجار، زلزله و آتشفشان، ضایعات ناشی از ترکیدگی لوله آب، جنگ، هزینه اجاره و اسکان موقت، مسئولیت مالی در قبال همسایگان و هزینه پاکسازی قرار گرفته‌اند. جزئیات تعهدات بیمه‌گر در جدول زیر آمده است:
+          </p>
+
+          <div class="table-responsive w-sm-100 w-75 mx-auto my-1 my-sm-3">
+            <table class="table table-bordered text-center align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">شرح تعهد</th>
+                  <th scope="col">سقف تعهد (ریال)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>هزینه ساخت و بازسازی ساختمان و تأسیسات</td>
+                  <td>۲۵,۰۰۰,۰۰۰,۰۰۰</td>
+                </tr>
+                <tr>
+                  <td>اثاثیه و لوازم منزل</td>
+                  <td>۱۵,۰۰۰,۰۰۰,۰۰۰</td>
+                </tr>
+                <tr>
+                  <td>وسیله نقلیه واقع در پارکینگ محل مورد بیمه</td>
+                  <td>۱۰,۰۰۰,۰۰۰,۰۰۰</td>
+                </tr>
+                <tr>
+                  <td>مسئولیت در قبال همسایگان (ناشی از وقوع خطرات آتش‌سوزی، انفجار و ترکیدگی لوله آب)</td>
+                  <td>۵,۰۰۰,۰۰۰,۰۰۰</td>
+                </tr>
+                <tr>
+                  <td>هزینه اجاره و اسکان موقت</td>
+                  <td>۶,۰۰۰,۰۰۰,۰۰۰</td>
+                </tr>
+                <tr>
+                  <td>هزینه جمع‌آوری و خارج نمودن ضایعات اموال خسارت دیده ناشی از تحقق خطرات تحت پوشش بیمه‌نامه</td>
+                  <td>۱,۰۰۰,۰۰۰,۰۰۰</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* ------------------------------------------- */}
 
         <div className="row justify-content-evenly">
@@ -180,15 +224,8 @@ function MyForm() {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        {/* ----------------------------------------------- */}
-        <p className="my-3">
-          به اطلاع میرساند امکان افزایش پوششهای ذیل به جهت بهبود بیمه‌نامه با
-          توجه به نیاز بیمه‌گذار میسر است؛ در صورت درخواست، هر کدام از موارد مورد نیاز را انتخاب نمائید. کارشناسان این شرکت در اسرع وقت با شما ارتباط میگیرند.
-        </p>
-        {/* ----------------------------------------- */}
 
-        <div className="row mb-4">
-          {/* ریفکتور چک‌باکس‌ها با آرایه */}
+        {/* <div className="row mb-4">
           {[
             { label: "زلزله", state: earthquake, setState: setEarthquake, info: " با پرداخت حق بیمه اضافی به مبلغ 110 هزار تومان" },
             { label: "سیل", state: flood, setState: setFlood, info: " با پرداخت حق بیمه اضافی به مبلغ 44 هزار تومان" },
@@ -210,7 +247,7 @@ function MyForm() {
               </label>
             </div>
           ))}
-        </div>
+        </div> */}
         <div className="row justify-content-center align-items-center">
           <img
             className="captcha-image"
